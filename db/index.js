@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 
 let client = null;
 async function connectToDb() {
@@ -11,4 +11,4 @@ async function connectToDb() {
   return client.db(process.env.DB_NAME);
 }
 
-module.exports = connectToDb;
+module.exports = { connectToDb, ObjectId };
