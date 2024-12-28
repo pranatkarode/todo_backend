@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { getAllTeachers, getTeacherById } = require("../models/teachers");
+const {
+  getAllTeachers,
+  getTeacherById,
+  getFreeTeachers,
+} = require("../models/teachers");
 
 router.get("/teachers", async (req, res) => {
   await getAllTeachers(req, res);
@@ -9,7 +13,11 @@ router.get("/teachers", async (req, res) => {
 //define the route
 //add controller in teachers.js
 //add get all strdents routes
+
+router.get("/teachers/free", getFreeTeachers);
+
 router.get("/teachers/:id", async (req, res) => {
+  console.log("came here");
   await getTeacherById(req, res);
 });
 

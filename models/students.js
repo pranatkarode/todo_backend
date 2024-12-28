@@ -77,6 +77,49 @@ async function updateStudent(req, res) {
 }
 
 //TODO
-async function deleteStudentById() {}
+// Get all classes taught by the teachers
+// Get all students where class_id is one the classes taught by the teacher
 
-module.exports = { getAllStudents, getStudentById, addStudent, updateStudent };
+async function getStudentsByTeacherId(req, res) {
+  try {
+    const db = await connectToDb();
+    const teacherId = ObjectId.createFromHexString(req.params.id);
+    const classesTaught = await db
+      .collection("classes")
+      .find({
+        $or: [
+          { primary_teacher_id: teacherId },
+          {
+            secondary_teacher_ids: teacherId,
+          },
+        ],
+      })
+      .toArray();
+    const classIds = classesTaught.map((c) => {
+      return c._id.toString();
+    });
+    const students = await db
+      .collection("students")
+      .find({
+        class_id: {
+          $in: [...classIds],
+        },
+      })
+      .toArray();
+    res.status(200).json(successResponse(students));
+  } catch (error) {
+    res.status(500).json(failureResponse(error));
+  }
+}
+async function deleteStudentById() {
+  //deleteOne
+  //req.params.id
+}
+
+module.exports = {
+  getAllStudents,
+  getStudentById,
+  addStudent,
+  updateStudent,
+  getStudentsByTeacherId,
+};

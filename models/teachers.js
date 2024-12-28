@@ -1,5 +1,6 @@
 const { connectToDb, ObjectId } = require("../db");
 const { failureResponse, successResponse } = require("../utils/response");
+
 async function getAllTeachers(req, res) {
   try {
     const db = await connectToDb();
@@ -27,7 +28,49 @@ async function getTeacherById(req, res) {
   }
 }
 
-async function updateTeacher() {}
-async function deleteTeacherById() {}
+async function getFreeTeachers(req, res) {
+  try {
+    const db = await connectToDb();
+    const teachers = await db
+      .collection("teachers")
+      .find(
+        {},
+        {
+          projection: {
+            _id: 1,
+          },
+        }
+      )
+      .toArray();
+    const teacherIds = teachers.map((teacher) => teacher._id.toString());
+    console.log("teacher", teacherIds);
+    const teachingTeachers = await db
+      .collection("classes")
+      .find(
+        {},
+        {
+          projection: { primary_teacher_id: 1, secondary_teacher_ids: 1 },
+        }
+      )
+      .toArray();
 
-module.exports = { getAllTeachers, getTeacherById };
+    const assignedTeachers = new Set([
+      ...teachingTeachers.reduce((acc, curr) => {
+        acc.push(curr.primary_teacher_id.toString());
+        acc = [
+          ...acc,
+          ...curr.secondary_teacher_ids.map((id) => id.toString()),
+        ];
+        return acc;
+      }, []),
+    ]);
+    const freeTeachers = teacherIds.filter(
+      (teacherId) => !assignedTeachers.has(teacherId)
+    );
+    res.status(200).json(successResponse(freeTeachers));
+  } catch (error) {
+    res.status(500).json(failureResponse(error));
+  }
+}
+
+module.exports = { getAllTeachers, getTeacherById, getFreeTeachers };

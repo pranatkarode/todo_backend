@@ -5,6 +5,7 @@ const {
   getStudentById,
   addStudent,
   updateStudent,
+  getStudentsByTeacherId,
 } = require("../models/students");
 
 router.get("/students", async (req, res) => {
@@ -20,6 +21,7 @@ router.post("/students", async (req, res) => {
   await addStudent(req, res);
 });
 
+router.get("/students/by/teacher/:id", getStudentsByTeacherId);
 router.put("/students/:id", async (req, res) => {
   await updateStudent(req, res);
 });
