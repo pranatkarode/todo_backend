@@ -22,6 +22,9 @@ router.post("/students", async (req, res) => {
 });
 
 router.get("/students/by/teacher/:id", getStudentsByTeacherId);
+
+router.get("/teachers/:teacherId/students", getStudentsByTeacher);
+
 router.put("/students/:id", async (req, res) => {
   await updateStudent(req, res);
 });
