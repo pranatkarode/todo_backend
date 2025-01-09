@@ -51,7 +51,59 @@ async function getAllNotes(req, res) {
     return res.status(500).json(failureResponse(error.message));
   }
 }
+
+async function getAllNotesById(req, res) {
+  try {
+    const id = req.params.id;
+    const notes = await Note.findById(id);
+    if (!notes) {
+      return res.status(404).json({
+        ok: false,
+        msg: "Note not found",
+      });
+    }
+    return res.status(200).json(successResponse(note));
+  } catch (error) {
+    return res.status(500).json(failureResponse(error.message));
+  }
+}
+
+async function updateNote(req, res) {
+  try {
+    const id = req.params.id;
+    const notes = await Note.findByIdAndUpdate(id, req.body, { new: true });
+    if (!notes) {
+      return res.status(404).json({
+        ok: false,
+        msg: "Note not found",
+      });
+    }
+    return res.status(200).json(successResponse(note));
+  } catch (error) {
+    return res.status(500).json(failureResponse(error.message));
+  }
+}
+
+async function DeleteNote(req, res) {
+  try {
+    const id = req.params.id;
+    const notes = await Note.findByIdAndDelete(id);
+    if (!notes) {
+      return res.status(404).json({
+        ok: false,
+        msg: "Note not found",
+      });
+    }
+    return res.status(200).json(successResponse(note));
+  } catch (error) {
+    return res.status(500).json(failureResponse(error.message));
+  }
+}
+
 module.exports = {
   createNote,
   getAllNotes,
+  getAllNotesById,
+  updateNote,
+  DeleteNote,
 };
