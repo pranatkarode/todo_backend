@@ -9,7 +9,7 @@ async function registerNewUser(req, res) {
     await user.save();
     res.status(201).json(successResponse("User registered successfully."));
   } catch (error) {
-    console.log("error", error, error.cause, error.message);
+    // console.log("error", error, error.cause, error.message);
     if (error.name === "ValidationError") {
       const errArray = error.message
         .split(": ")
@@ -27,9 +27,16 @@ async function registerNewUser(req, res) {
         errors: errObj,
       });
     }
-    if (error.code === 11000) {
-      const field = Object.keys(error.keyValue)[0];
-      res.status(400).json(failureResponse(`${field} alreaddy exists`));
+    if (error.code === 11000 || error?.cause?.code === 11000) {
+      const field = error?.cause
+        ? Object.keys(error.cause.keyValue)[0]
+        : Object.keys(error.keyValue)[0];
+      return res.status(400).json({
+        ok: false,
+        errors: {
+          [field]: `${field} already exists`,
+        },
+      });
     }
   }
 }

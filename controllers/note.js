@@ -26,11 +26,18 @@ async function createNote(req, res) {
         errors: errObj,
       });
     }
-    if (error.code === 11000) {
-      const field = Object.keys(error.keyValue)[0];
-      return res.status(400).json(failureResponse(`${field} alreaddy exists`));
+    if (error.code === 11000 || error?.cause?.code === 11000) {
+      const field = error?.cause
+        ? Object.keys(error.cause.keyValue)[0]
+        : Object.keys(error.keyValue)[0];
+      return res.status(400).json({
+        ok: false,
+        errors: {
+          [field]: `${field} already exists`,
+        },
+      });
     }
-    res.status(403).json({
+    return res.status(403).json({
       ok: false,
       err: error.message,
     });
