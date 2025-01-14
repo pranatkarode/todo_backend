@@ -3,9 +3,11 @@ const app = express();
 const routes = require("./routes");
 const registerRoutes = require("./utils/registerRoutes");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 require("dotenv").config();
 app.use(express.json());
+app.use(cors());
 registerRoutes(app, routes);
 
 mongoose

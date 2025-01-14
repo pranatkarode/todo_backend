@@ -1,0 +1,245 @@
+{
+	"info": {
+		"_postman_id": "56950700-e8eb-4c0f-a070-2463f62df4d9",
+		"name": "Todos Application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28074718"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"pranat3\",\r\n    \"email\":\"pranatkarode3@hotmail.com\",\r\n    \"password\":\"Password123#\",\r\n    \"firstName\":\"Pranat\",\r\n    \"lastName\":\"Karode\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc3NzM0NzZjNzhhMTFkMGM2MjQ4MTciLCJpYXQiOjE3MzYyNTkzOTIsImV4cCI6MTczNjI2Mjk5Mn0.3HVFYfEi4FaGhue8-Q9bYzSM2K4GoCKCjlLQt1kT5uU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc3NzM0NzZjNzhhMTFkMGM2MjQ4MTciLCJpYXQiOjE3MzYyNTk1OTksImV4cCI6MTczNjI2MzE5OX0.bRxXKTK9zr_ozvwwUPkCnCNG8ICvTXv931f2JrNMyVY",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"pranat\",\r\n    \"password\":\"Password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "Create Note",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc3NzM0NzZjNzhhMTFkMGM2MjQ4MTciLCJpYXQiOjE3MzYzMTMzMDMsImV4cCI6MTczNjMxNjkwM30.2TK-z5yVYwPERnNj_v7v-_UAWLKcY-CmIRSJvnCDS5o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Prepare for JavaScript demo\",\r\n  \"description\": \"Plan and create slides for the JavaScript lecture demo.\",\r\n  \"userId\": \"677623b2c70b165d953bb77d\",\r\n  \"dueDate\": \"2025-01-15T00:00:00.000Z\",\r\n  \"category\": \"Work\",\r\n  \"tags\": [\"JavaScript\", \"Lecture\", \"Demo\"],\r\n  \"completed\": false\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Notes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc3NzM0NzZjNzhhMTFkMGM2MjQ4MTciLCJpYXQiOjE3MzYzOTk2OTYsImV4cCI6MTczNjQwMzI5Nn0.yW4EjRoucfDLfM9YW5her9DiObAOiWwOS-J1ELQJOAw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Note",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc3NzM0NzZjNzhhMTFkMGM2MjQ4MTciLCJpYXQiOjE3MzYzOTk2OTYsImV4cCI6MTczNjQwMzI5Nn0.yW4EjRoucfDLfM9YW5her9DiObAOiWwOS-J1ELQJOAw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Testing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/notes/677e0b58b4986d6abbf554de",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"notes",
+								"677e0b58b4986d6abbf554de"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Note",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc3NzM0NzZjNzhhMTFkMGM2MjQ4MTciLCJpYXQiOjE3MzYzOTk2OTYsImV4cCI6MTczNjQwMzI5Nn0.yW4EjRoucfDLfM9YW5her9DiObAOiWwOS-J1ELQJOAw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/notes/677e0b58b4986d6abbf554de",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"notes",
+								"677e0b58b4986d6abbf554de"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Note",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

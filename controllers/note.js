@@ -55,8 +55,8 @@ async function getAllNotes(req, res) {
 async function getAllNotesById(req, res) {
   try {
     const id = req.params.id;
-    const notes = await Note.findById(id);
-    if (!notes) {
+    const note = await Note.findById(id);
+    if (!note) {
       return res.status(404).json({
         ok: false,
         msg: "Note not found",
@@ -71,8 +71,8 @@ async function getAllNotesById(req, res) {
 async function updateNote(req, res) {
   try {
     const id = req.params.id;
-    const notes = await Note.findByIdAndUpdate(id, req.body, { new: true });
-    if (!notes) {
+    const note = await Note.findByIdAndUpdate(id, req.body, { new: true });
+    if (!note) {
       return res.status(404).json({
         ok: false,
         msg: "Note not found",
@@ -87,8 +87,8 @@ async function updateNote(req, res) {
 async function DeleteNote(req, res) {
   try {
     const id = req.params.id;
-    const notes = await Note.findByIdAndDelete(id);
-    if (!notes) {
+    const note = await Note.findByIdAndDelete(id);
+    if (!note) {
       return res.status(404).json({
         ok: false,
         msg: "Note not found",
