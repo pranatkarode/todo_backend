@@ -4,7 +4,7 @@ const { successResponse, failureResponse } = require("../utils/response");
 async function createNote(req, res) {
   //   const { userName, email, password, firstName, lastName } = req.body;
   try {
-    const note = new Note({ ...req.body });
+    const note = new Note({ ...req.body, userId: req.user?.userId });
     await note.save();
     res.status(201).json(successResponse("Note created successfully"));
   } catch (error) {
