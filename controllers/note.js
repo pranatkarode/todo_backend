@@ -46,7 +46,7 @@ async function createNote(req, res) {
 
 async function getAllNotes(req, res) {
   try {
-    const notes = await Note.find();
+    const notes = await Note.find({ userId: req.user.userId });
     if (!notes || notes.length == 0) {
       return res.status(404).json({
         ok: false,
